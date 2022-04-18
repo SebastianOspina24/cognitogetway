@@ -8,10 +8,10 @@
 		<version>2.6.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.tutorial</groupId>
-	<artifactId>cognito-back</artifactId>
+	<groupId>edu.eci.arep</groupId>
+	<artifactId>cognito-getway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>cognito-back</name>
+	<name>cognito-getway</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>

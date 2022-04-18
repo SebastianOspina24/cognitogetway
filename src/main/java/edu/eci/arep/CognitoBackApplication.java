@@ -21,13 +21,13 @@ import java.net.URL;
 @SpringBootApplication
 public class CognitoBackApplication {
 
-	@Value("${com.tutorial.jwt.aws.connectionTimeout}")
+	@Value("${edu.eci.arep.jwt.aws.connectionTimeout}")
 	private int connectionTimeout;
 
-	@Value("${com.tutorial.jwt.aws.readTimeout}")
+	@Value("${edu.eci.arep.jwt.aws.readTimeout}")
 	private int readTimeout;
 
-	@Value("${com.tutorial.jwt.aws.jwkUrl}")
+	@Value("${edu.eci.arep.jwt.aws.jwkUrl}")
 	private String jwkUrl;
 
 	public static void main(String[] args) {
