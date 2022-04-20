@@ -34,7 +34,6 @@ public class RestGetWay {
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.set("Content-Type",
                     "application/json");
-
             return ResponseEntity.ok()
                     .headers(responseHeaders)
                     .body(callBack(getstream, headers, null));
