@@ -7,8 +7,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,9 +29,15 @@ public class RestGetWay {
     private String getstream;
 
     @GetMapping("/stream")
-    public ResponseEntity<?> getStream(@RequestHeader Map<String, String> headers, @RequestBody String json) {
+    public ResponseEntity<?> getStream(@RequestHeader Map<String, String> headers) {
         try {
-            return new ResponseEntity<>(callBack(getstream, headers, json), HttpStatus.ACCEPTED);
+            HttpHeaders responseHeaders = new HttpHeaders();
+            responseHeaders.set("Content-Type",
+                    "application/json");
+
+            return ResponseEntity.ok()
+                    .headers(responseHeaders)
+                    .body(callBack(getstream, headers, null));
         } catch (IOException e) {
             e.printStackTrace();
             return new ResponseEntity<>("Error en el get", HttpStatus.BAD_REQUEST);
@@ -54,16 +60,18 @@ public class RestGetWay {
         for (String headerKey : headers.keySet()) {
             connection.setRequestProperty(headerKey, headers.get(headerKey));
         }
-        connection.setDoOutput(true);
-        OutputStream os = connection.getOutputStream();
-        os.write(json.getBytes("UTF-8"));
-        os.close();
+        if (json != null) {
+            connection.setDoOutput(true);
+            OutputStream os = connection.getOutputStream();
+            os.write(json.getBytes("UTF-8"));
+            os.close();
+        }
         connection.getResponseCode();
         BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         StringBuilder sb = new StringBuilder();
         String line;
         while ((line = br.readLine()) != null) {
-            sb.append(line + "\n");
+            sb.append(line);
         }
         br.close();
         connection.disconnect();
